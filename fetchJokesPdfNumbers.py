@@ -2,7 +2,7 @@ import PyPDF2
 import pandas as pd
 import re
 
-pdf_path = "/Users/erenaltin/Documents/School/jokesLLM/fikralar.pdf"  # PDF dosyanın adını doğru yaz
+pdf_path = "/Users/erenaltin/Documents/School/jokesLLM/fikralar.pdf" 
 
 with open(pdf_path, "rb") as file:
     reader = PyPDF2.PdfReader(file)
@@ -29,7 +29,7 @@ for line in lines:
         if current_title and current_fikra:
             fikralar.append({"baslik": current_title, "icerik": " ".join(current_fikra)})
 
-        current_title = clean_title(line)  # Yeni başlık başlar (numarasız)
+        current_title = clean_title(line)
         current_fikra = []
     else:
         if current_title:  # Başlık varsa içeriği ekle
