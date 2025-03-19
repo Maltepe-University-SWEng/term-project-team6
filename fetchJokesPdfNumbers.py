@@ -32,7 +32,7 @@ for line in lines:
         current_title = clean_title(line)
         current_fikra = []
     else:
-        if current_title:  # Başlık varsa içeriği ekle
+        if current_title: 
             current_fikra.append(line)
 
 if current_title and current_fikra:
