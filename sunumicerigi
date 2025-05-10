@@ -1,0 +1,408 @@
+🧩 1. Introduction 
+
+This project aims to develop an AI-powered system capable of generating humorous content in Turkish. The system utilizes a fine-tuned GPT-2 language model to generate culturally relevant and contextually appropriate jokes (fıkra) based on the user’s selected category. 
+
+🎯 Main Objectives: 
+
+To build an AI model capable of understanding and replicating humor specific to Turkish culture 
+
+To provide an interactive and accessible web-based joke generation platform 
+
+To ensure ethical and safe content generation by implementing data filtering and output control 
+
+ 
+
+📅 2. Project Timeline and Workflow 
+
+Period 
+
+Tasks Completed 
+
+Early March 
+
+Definition of project goals, literature review 
+
+Late March 
+
+Dataset collection, cleaning, and categorization 
+
+Early April 
+
+Model fine-tuning and evaluation of output samples 
+
+Mid-April 
+
+Development of web interface using HTML and Flask API 
+
+Early May 
+
+User feedback gathering, final testing, and deployment 
+
+Throughout these phases, the team maintained consistent documentation and version control via GitHub and structured project reports. 
+
+    Resim, Resim 
+📦 3. Dataset and Preparation Process (Detailed) 
+
+At the heart of this project lies a custom-built dataset composed of humorous Turkish short stories called fıkra. This stage involved not only collecting the data, but also refining and validating it to ensure high quality and ethical compliance for model training. 
+
+ 
+
+🔍 3.1. Data Collection 
+
+Approximately 2,000 Turkish jokes were collected manually from a wide range of sources. 
+
+Data Sources Included: 
+
+Online humor platforms 
+
+Nasreddin Hoca joke archives 
+
+Traditional Turkish joke anthologies 
+
+Public forums, PDFs, and digital joke books 
+
+All jokes were simplified and standardized in Turkish to ensure linguistic consistency. 
+
+Resim, Resim 
+🗃️ 3.2. Categorization 
+
+Each joke was assigned to one of the following categories to help the model learn different styles of humor: 
+
+Nasreddin Hoca – traditional and moral-themed jokes 
+
+Keloğlan – surreal, fairy-tale-inspired stories 
+
+Temel – regional humor from the Black Sea area 
+
+Random – modern or uncategorized jokes 
+
+Others – extremely short or unclassifiable content 
+
+This classification enabled the model to recognize stylistic differences and generate jokes accordingly. 
+
+Resim, Resim 
+🧼 3.3. Data Cleaning and Preprocessing 
+
+To enhance data quality and eliminate misleading or inappropriate examples, the following preprocessing steps were applied: 
+
+Resim 
+
+🧠 3.4. Formatting for Training 
+
+To support effective learning, each joke was prepared in a structured format compatible with the GPT-2 model: 
+
+<|startoftext|> 
+Category: Nasreddin Hoca 
+Joke: One day the Hoca said... 
+<|endoftext|> 
+ 
+
+This format helped the model understand both the context and the category of the joke, guiding its generation process. 
+
+🔐 3.5. Ethics and Content Safety 
+
+All entries included in the training dataset were manually reviewed to ensure they aligned with ethical standards. The model was restricted from producing jokes related to sensitive topics such as: 
+
+Sexist or discriminatory content 
+
+Profanity or politically charged language 
+
+Religious or ethnically sensitive humor 
+
+This approach allowed the model to deliver socially appropriate and trustworthy humor outputs. 
+
+🧠 4. LLM Training and Modeling (Detailed) 
+
+ 
+
+📌 Model Used: 
+
+In this project, we utilized the ytu-ce-cosmos/gpt2 model, a Turkish-specific version of GPT-2 available on the Hugging Face platform. The main advantages of this model include: 
+
+A tokenizer specifically optimized for the Turkish language 
+
+Small model size, enabling faster training and lower resource consumption 
+
+Strong text generation capability based on the GPT-2 architecture 
+
+The model was fine-tuned specifically for Turkish joke (fıkra) generation as part of this project. 
+
+ 
+
+🛠️ Training Environment 
+
+Platform: Google Colab (NVIDIA T4 GPU) 
+
+Libraries: Hugging Face transformers, datasets, accelerate, wandb 
+
+Hardware Specs: 16 GB GPU memory, 2 vCPUs (Colab Pro environment) 
+
+Resim 
+
+The training was managed using Hugging Face’s Trainer class. Throughout the process, both training and validation losses were monitored. In addition, perplexity scores were tracked to evaluate the model’s language learning performance. 
+
+📤 Model Behavior and Output 
+
+At the end of training, the model achieved the following abilities: 
+
+It could distinguish between different styles of humor (e.g., Nasreddin Hoca, Temel) 
+
+It generated short, coherent, and contextually relevant jokes 
+
+It learned the linguistic structure and tone specific to each category (e.g., local dialect patterns in "Temel" jokes) 
+
+This stage not only enabled the model to produce fluent and logical outputs but also allowed it to reflect the structural characteristics of Turkish cultural humor. 
+ It demonstrated how a fine-tuned GPT-2 model can deliver effective and culturally meaningful results when trained with a well-prepared dataset. 
+
+🌐 5. Web Interface (User Interface and Experience) 
+
+The web interface developed for this project follows a simple yet effective design philosophy. Its main goal is to allow users to generate jokes in an intuitive and enjoyable way by selecting a desired category. 
+
+ 
+
+🎨 Interface Design 
+
+🖼️ Visual Identity: 
+
+The interface incorporates category-specific background images to visually represent different joke types: 
+
+Examples: nasreddin1.jpg, temel2.jpg, random2.jpg 
+
+The backgrounds and buttons use dark-toned color schemes, with high-contrast text for better readability. 
+ The page title and slogan are centered on the screen, and the layout is fully mobile-responsive. 
+
+Resim, Resim 
+Resim, Resim 
+🧭 Home Page (index.html) 
+
+The homepage includes: 
+
+The project title and description 
+
+Two primary buttons: 
+
+"Joke Generator" – redirects the user to the joke generation screen 
+
+"Joke History" – displays previously generated jokes stored on the user's browser 
+
+Button Styling (btn-joke class): 
+
+Color: Deep teal (#00384d) 
+
+Border radius: 6px (rounded corners) 
+
+Hover effect: elevated shadow + smooth animation for interactive feel 
+
+Resim, Resim 
+✨ User Experience (UX) 
+
+The overall page structure is: 
+
+Lightweight and fast-loading 
+
+Fully responsive across all screen resolutions 
+
+Designed to reduce user friction 
+
+Workflow: 
+
+The user selects a category by clicking a button. 
+
+The system navigates to the joke generation screen. 
+
+A Flask API call is made in the background. 
+
+The generated joke is returned instantly and displayed in a text box. 
+
+Previously generated jokes are automatically saved in localStorage (client-side history), without the need for a backend database. 
+
+💡 Interaction Flow 
+
+User → Selects Category → Joke Screen → API Request → Model Response → Display Joke 
+ 
+
+Optionally, the user can view past jokes stored on the device. 
+
+This design strikes a balance between user-friendliness and technical efficiency. 
+ Its simplicity makes the underlying GPT2-based joke generation system feel accessible, fast, and fun — turning artificial intelligence into an entertaining and engaging user experience. 
+
+Resim, Resim 
+
+Resim, Resim 
+ 
+ 
+
+🧱 6. System Architecture (Architecture of the Joke Generator System) 
+
+This project was developed using a layered and modular architecture. Each component was designed to handle its own responsibilities independently, which improves maintainability, testability, and scalability of the system. 
+
+Resim 
+
+6.1. Data Flow 
+
+User → Web Interface → Flask API → GPT2 Model → Flask API → Interface → Joke Display 
+ 
+
+This modular pipeline ensures that each component can be developed, tested, or replaced independently. 
+
+🖥️ 6.2. User Interface (Frontend) 
+
+Built using HTML5 and Bootstrap 5 
+
+Users select a joke category and initiate the generation process 
+
+A fetch() POST request is sent to the Flask API via JavaScript 
+
+The returned joke is rendered dynamically on the screen 
+
+ 
+
+🔌 6.3. Flask-Based API Layer 
+
+Developed using the lightweight Flask micro-framework 
+
+Primary endpoint: /generate-joke 
+
+Accepts a category parameter in incoming requests 
+
+Constructs a category-specific prompt and sends it to the model 
+
+Receives the generated joke and returns it as a JSON response to the frontend 
+
+🧠 6.4. GPT2 Model Layer 
+
+The ytu-ce-cosmos/gpt2 model is loaded from Hugging Face 
+
+Within Flask, it is accessed via the transformers library using the pipeline("text-generation") function 
+
+The prompt is structured like: 
+
+       Nasreddin Hoca joke: ... 
+ 
+
+The model completes the prompt to generate a short joke 
+
+Output is limited to 50 tokens with controlled sampling parameters (e.g., top_k, top_p, temperature) 
+
+ 
+
+🗃️ 6.5. Database Layer  
+
+Histories Table: stores joke history per user session 
+
+This structure would allow the system to be personalized, offer recommendations, and enable data analytics in future versions. 
+
+ 
+
+🔐 6.6. Security and Ethics Layer 
+
+To avoid inappropriate outputs, a filtered dataset and post-generation content checking were implemented 
+
+All incoming API parameters are secured using try/except error handling 
+
+No personal data is collected, ensuring privacy compliance 
+
+ 
+
+🔄 6.7. Modularity and Scalability 
+
+Frontend, backend, and model components are fully decoupled 
+
+Flask can be replaced with FastAPI or Node.js 
+
+Hugging Face model hosting can be replaced with ONNX, TorchScript, or TensorRT for local deployment 
+
+A database layer can be integrated with minimal effort 
+
+Resim 
+
+📊 7. Evaluation and Development Opportunities 
+
+ 
+
+✅ 7.1. System Evaluation 
+
+The project outcomes were evaluated based on both technical performance and user experience across the following criteria: 
+
+Resim 
+
+🧪 7.2. Strengths 
+
+✅ Meaningful content generation using a Turkish-specific GPT2 model 
+
+✅ Lightweight stack: Easily deployable via Colab + Flask + HTML 
+
+✅ Humor generation based on category differentiation 
+
+✅ Clean, responsive interface compatible with both desktop and mobile 
+
+✅ Ethically cleaned dataset with cultural sensitivity 
+
+ 
+
+🚧 7.3. Limitations 
+
+🔸 Some jokes are too short or lack logical coherence 
+
+🔸 No support for offline inference engines or deployment 
+
+🔸 Lacks user feedback collection (e.g., joke rating) 
+
+🔸 Database integration is not active; history stored via localStorage only 
+
+🔸 No multi-user session system; all users interact at the same level 
+
+🔮 7.4. Opportunities for Improvement 
+
+Resim 
+
+💬 7.5. General Assessment 
+
+This project is a technically robust, user-friendly, and culturally meaningful AI application. 
+ The combination of a capable model, a simple UI, and ethical oversight resulted in a platform that is fully functional, engaging, and open to future development. 
+
+🏁 8. Conclusion and Final Remarks 
+
+ 
+
+🎓 Project Evaluation 
+
+This project has been successfully completed as an AI-powered Turkish joke generation system. It encompassed all key phases required by modern AI development workflows, including data collection, model training, API integration, and frontend interface design. 
+
+✅ A Turkish-specific GPT-2 model was fine-tuned 
+ ✅ A cleaned and categorized original joke dataset was created 
+ ✅ A Flask-based backend was built to serve the model 
+ ✅ A mobile-friendly and minimalist web interface was implemented 
+ ✅ The entire system was connected seamlessly — from user input to AI-generated output 
+
+These results show that a meaningful AI application was developed, both technically and culturally. 
+
+ 
+
+🧠 Key Learnings 
+
+Through this project, we learned: 
+
+How to apply natural language processing (NLP) techniques to a real-world problem 
+
+How to fine-tune a large language model (LLM) in a low-resource environment 
+
+The importance of ethical filtering and moderation in generative AI 
+
+How to build and integrate a full-stack AI system combining backend, frontend, and model deployment 
+
+ 
+
+🏁 Final Message 
+
+“Artificial intelligence doesn’t just inform — it can make us laugh.” 
+
+The goal of this project was to show that AI can be used not only for knowledge generation, but also to produce humor and joy. 
+
+Developing a system capable of generating culturally meaningful jokes in Turkish, a morphologically rich language, is both an original and successful initiative. 
+
+🎉 Our project stands at the intersection of technical achievement and cultural creativity, delivering an engaging, innovative, and inspiring result. 
+
+ 
+
+ 
