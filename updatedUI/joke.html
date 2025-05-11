@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Joke Generator Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+     html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #d1eaf7, #f9d4ec);
+  background-attachment: fixed; /* Sayfa kaydırıldıkça gradient sabit kalır */
+  font-family: 'Poppins', sans-serif;
+}
+    .top-right {
+      font-style: italic;
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      color: #083d4f;
+    }
+
+    .header-note {
+      text-align: center;
+      margin-top: 40px;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: #0d4d63;
+    }
+
+    .joke-box {
+      background-color: #fff;
+      border-radius: 20px;
+      padding: 60px;
+      margin: 30px auto;
+      text-align: center;
+      font-size: 1.2rem;
+      color: #2c2c2c;
+      width: 55%;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      border: 2px dashed #083d4f;
+      transition: all 0.3s ease;
+    }
+
+    .btn-custom {
+      background-color: #083d4f;
+      color: white;
+      border-radius: 12px;
+      padding: 10px 25px;
+      font-style: italic;
+      border: none;
+      font-weight: bold;
+    }
+
+    #categoryList {
+      display: none;
+      position: absolute;
+      top: 100%;
+      margin-top: 10px;
+      z-index: 100;
+      width: 100%;
+    }
+
+    .category-pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      padding: 20px;
+      background: #f7fbff;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .category-pill {
+      display: flex;
+      align-items: center;
+      background-color: #d8eaff;
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-style: italic;
+      font-weight: bold;
+      color: #00384d;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 160px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .category-pill:hover {
+      transform: scale(1.05);
+      background-color: #bddcff;
+    }
+
+    .category-pill img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-right: 12px;
+    }
+
+    .category-info {
+      font-style: italic;
+      font-size: 1.1rem;
+      margin-top: 10px;
+      color: #00384d;
+      text-align: center;
+    }
+
+    .category-images {
+      display: flex;
+      justify-content: space-evenly;
+      margin: 30px auto;
+      width: 85%;
+      animation: fadeIn 0.7s ease;
+    }
+
+    .category-images img {
+      width: 20%;
+      border-radius: 20px;
+      box-shadow: 4px 6px 18px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .category-images img:hover {
+      transform: scale(1.05);
+    }
+
+    #mainPageLabel button {
+      margin: 10px;
+    }
+    .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    animation: slideIn 1.2s ease;
+    position: relative;
+    z-index: 10;
+  }
+
+  .logo-container img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    animation: rotateLogo 8s linear infinite;
+    box-shadow: 0 0 25px rgba(0, 150, 255, 0.4),
+                0 0 50px rgba(0, 150, 255, 0.3),
+                0 0 75px rgba(0, 150, 255, 0.2);
+    transition: transform 0.3s ease;
+  }
+
+  .logo-container img:hover {
+    transform: scale(1.1);
+  }
+
+  @keyframes rotateLogo {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-right">Joke Generator Page</div>
+  <div class="logo-container">
+    <img src="logoo.jpg" alt="Logo">
+  </div>
+  
+  <div class="header-note">
+    It’s time for some fun! Laugh along with traditional Turkish humor!<br>
+    Get ready to laugh! Every click brings a new joke just for you.
+  </div>
+
+  <div class="joke-box" id="jokeBox">Click the button to get a joke!</div>
+
+  <div class="d-flex justify-content-between align-items-center mb-4" style="width: 50%; margin: auto;">
+    <div class="position-relative">
+      <button class="btn btn-custom" id="categoryToggleBtn" onclick="toggleCategory()">Select Category ↓</button>
+      <div id="categoryList">
+        <div class="category-pill-grid">
+          <button class="category-pill" onclick="selectCategory('Random')">
+            <img src="random1.png" alt="random"> Random
+          </button>
+          <button class="category-pill" onclick="selectCategory('Nasrettin Hoca')">
+            <img src="nasreddin1.png" alt="nasreddin"> Nasrettin Hoca
+          </button>
+          <button class="category-pill" onclick="selectCategory('Keloğlan')">
+            <img src="keloglan1.png" alt="keloglan"> Keloğlan
+          </button>
+          <button class="category-pill" onclick="selectCategory('Temel')">
+            <img src="temel1.png" alt="temel"> Temel
+          </button>
+          <button class="category-pill" onclick="selectCategory('Other')">
+            <img src="other1.png" alt="other"> Other
+          </button>
+          <button class="category-pill" onclick="cancelCategory()">
+            <img src="cancel.png" alt="cancel"> Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center;">
+      <div class="fw-bold">Category has been selected:</div>
+      <div class="category-info mt-1" id="selectedCategory">"You did not pick your category yet"</div>
+    </div>
+
+    <div>
+      <button class="btn btn-custom" onclick="generateJoke()">Generate a Joke</button>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-12 d-flex justify-content-center" id="mainPageLabel">
+      <button class="btn btn-custom mt-2" onclick="window.location.href='index.html'">Main Page</button>
+      <button class="btn btn-custom mt-2 ms-2" id="backBtn" onclick="backToCategories()" style="display: none;">Back to Categories</button>
+    </div>
+  </div>
+
+  <div class="category-images" id="categoryImages" style="display: none;">
+    <img id="leftImage" src="" alt="Left Image">
+    <img id="rightImage" src="" alt="Right Image">
+  </div>
+
+  <script>
+    let selected = false;
+    const categoryImages = {
+      "Random": { left: "random1.png", right: "random2.png" },
+      "Nasrettin Hoca": { left: "nasreddin1.png", right: "nasreddin2.png" },
+      "Keloğlan": { left: "keloglan1.png", right: "keloglan2.png" },
+      "Other": { left: "other1.png", right: "other2.png" },
+      "Temel": { left: "temel1.png", right: "temel2.png" }
+    };
+
+    function toggleCategory() {
+  const list = document.getElementById('categoryList');
+  const isOpen = window.getComputedStyle(list).display === 'block';
+  list.style.display = isOpen ? 'none' : 'block';
+}
+
+function selectCategory(name) {
+  document.getElementById('selectedCategory').textContent = `"${name}" selected`;
+  selected = true;
+
+  const imgs = categoryImages[name];
+  document.getElementById('leftImage').src = imgs.left;
+  document.getElementById('rightImage').src = imgs.right;
+  document.getElementById('categoryImages').style.display = 'flex';
+
+  // Kategori listesini kapat ama butonlar aktif kalsın
+  document.getElementById('categoryList').style.display = 'none';
+  document.getElementById('backBtn').style.display = 'inline-block';
+}
+
+    function cancelCategory() {
+      document.getElementById('selectedCategory').textContent = `"You did not pick your category yet"`;
+      document.getElementById('categoryList').style.display = 'none';
+      document.getElementById('backBtn').style.display = 'none';
+      document.getElementById('categoryImages').style.display = 'none';
+      selected = false;
+    }
+
+    function backToCategories() {
+      document.getElementById('categoryList').style.display = 'block';
+      document.getElementById('backBtn').style.display = 'none';
+      document.getElementById('categoryImages').style.display = 'none';
+      document.getElementById('selectedCategory').textContent = `"You did not pick your category yet"`;
+      selected = false;
+    }
+
+    function generateJoke() {
+  const selectedText = document.getElementById("selectedCategory").textContent;
+  const prompt = selectedText.includes("selected") ? selectedText.replace(/["“”]/g, "").replace(" selected", "") : "";
+
+  if (!prompt || prompt.includes("not pick")) {
+    document.getElementById("jokeBox").textContent = "Please select a category first.";
+    return;
+  }
+
+  document.getElementById("jokeBox").textContent = "Generating your joke...";
+
+  fetch("http://localhost:5050/generate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ prompt })
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("jokeBox").textContent = data.joke;
+
+    // ✅ BURAYA EKLE:
+    let history = JSON.parse(localStorage.getItem("jokeHistory") || "[]");
+    history.push(data.joke);
+    localStorage.setItem("jokeHistory", JSON.stringify(history));
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById("jokeBox").textContent = "Something went wrong while generating the joke.";
+  });
+}
+
+  </script>
+
+</body>
+</html>
